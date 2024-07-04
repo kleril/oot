@@ -8,7 +8,7 @@ void EnMa2_Destroy(Actor* thisx, PlayState* play);
 void EnMa2_Update(Actor* thisx, PlayState* play);
 void EnMa2_Draw(Actor* thisx, PlayState* play);
 
-void func_80AA1DB4(EnMa2* this, PlayState* play);
+void EnMa2_UpdateSinging(EnMa2* this, PlayState* play);
 void func_80AA2018(EnMa2* this, PlayState* play);
 void func_80AA204C(EnMa2* this, PlayState* play);
 void func_80AA20E4(EnMa2* this, PlayState* play);
@@ -211,7 +211,7 @@ void EnMa2_ChangeAnim(EnMa2* this, s32 index) {
                      sAnimationInfo[index].mode, sAnimationInfo[index].morphFrames);
 }
 
-void func_80AA1DB4(EnMa2* this, PlayState* play) {
+void EnMa2_UpdateSinging(EnMa2* this, PlayState* play) {
     if (this->skelAnime.animation == &gMalonAdultSingAnim) {
         if (this->interactInfo.talkState == NPC_TALK_STATE_IDLE) {
             if (this->isNotSinging) {
@@ -337,7 +337,7 @@ void EnMa2_Update(Actor* thisx, PlayState* play) {
     SkelAnime_Update(&this->skelAnime);
     EnMa2_UpdateEyes(this);
     this->actionFunc(this, play);
-    func_80AA1DB4(this, play);
+    EnMa2_UpdateSinging(this, play);
     EnMa2_UpdateTracking(this, play);
     if (this->actionFunc != func_80AA20E4) {
         Npc_UpdateTalking(play, &this->actor, &this->interactInfo.talkState, this->collider.dim.radius + 30.0f,
