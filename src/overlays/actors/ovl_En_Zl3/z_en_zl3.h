@@ -29,10 +29,10 @@ typedef struct EnZl3 {
     /* 0x02EC */ f32 unk_2EC;
     /* 0x02F0 */ s32 unk_2F0;
     /* 0x02F4 */ char unk_2F4[0x4];
-    /* 0x02F8 */ s32 unk_2F8;
+    /* 0x02F8 */ s32 warpSpawned;
     /* 0x02FC */ s32 unk_2FC;
     /* 0x0300 */ char unk_300[0x8];
-    /* 0x0308 */ s32 unk_308;
+    /* 0x0308 */ s32 overrideLimbDrawFunc; //Doesn't appear to ever have its value changed?
     /* 0x030C */ Path* unk_30C;
     /* 0x0310 */ s32 unk_310;
     /* 0x0314 */ s32 unk_314;
@@ -55,7 +55,7 @@ typedef struct EnZl3 {
     /* 0x03C4 */ s32 unk_3C4;
     /* 0x03C8 */ u8 unk_3C8;
     /* 0x03CC */ f32 unk_3CC;
-    /* 0x03D0 */ s16 unk_3D0;
+    /* 0x03D0 */ s16 trackPlayerSpeed; //Speed at which to turn to track the player
     /* 0x03D4 */ BossGanon2* ganon;
     /* 0x03D8 */ s32 unk_3D8;
     /* 0x03DC */ f32 unk_3DC;
