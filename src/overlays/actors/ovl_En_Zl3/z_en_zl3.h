@@ -33,9 +33,9 @@ typedef struct EnZl3 {
     /* 0x02FC */ s32 unk_2FC;
     /* 0x0300 */ char unk_300[0x8];
     /* 0x0308 */ s32 overrideLimbDrawFunc; //Doesn't appear to ever have its value changed?
-    /* 0x030C */ Path* unk_30C;
-    /* 0x0310 */ s32 unk_310;
-    /* 0x0314 */ s32 unk_314;
+    /* 0x030C */ Path* path;
+    /* 0x0310 */ s32 pathLength;
+    /* 0x0314 */ s32 pathPointIndex;
     /* 0x0318 */ s32 zl2Anime2ObjectSlot;
     /* 0x031C */ Vec3f unk_31C;
     /* 0x0328 */ s32 unk_328;
@@ -58,13 +58,13 @@ typedef struct EnZl3 {
     /* 0x03D0 */ s16 trackPlayerSpeed; //Speed at which to turn to track the player
     /* 0x03D4 */ BossGanon2* ganon;
     /* 0x03D8 */ s32 unk_3D8;
-    /* 0x03DC */ f32 unk_3DC;
-    /* 0x03E0 */ f32 unk_3E0;
-    /* 0x03E4 */ f32 unk_3E4;
-    /* 0x03E8 */ f32 unk_3E8;
-    /* 0x03EC */ f32 unk_3EC;
-    /* 0x03F0 */ f32 unk_3F0;
-    /* 0x03F4 */ f32 unk_3F4;
+    /* 0x03DC */ f32 unk_3DC;       //AnimationLength
+    /* 0x03E0 */ f32 unk_3E0;       //AnimationLength
+    /* 0x03E4 */ f32 unk_3E4;       //AnimationLength
+    /* 0x03E8 */ f32 unk_3E8;       //AnimationLength
+    /* 0x03EC */ f32 unk_3EC;       //AnimationLength
+    /* 0x03F0 */ f32 unk_3F0;       //AnimationLength
+    /* 0x03F4 */ f32 unk_3F4;       //AnimationLength
     /* 0x03F8 */ NpcInteractInfo interactInfo;
 } EnZl3; // size = 0x0420
 

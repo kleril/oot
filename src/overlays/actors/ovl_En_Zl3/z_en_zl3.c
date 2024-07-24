@@ -43,6 +43,50 @@ static ColliderCylinderInitType1 sCylinderInit = {
     { 25, 80, 0, { 0, 0, 0 } },
 };
 
+typedef enum {
+    /* 00 */ ZELDA_ACTION_WAIT_FOR_LOAD, //EnZl3_WaitForObject
+    /* 01 */ ZELDA_ACTION_1,
+    /* 02 */ ZELDA_ACTION_2,
+    /* 03 */ ZELDA_ACTION_3,
+    /* 04 */ ZELDA_ACTION_4,
+    /* 05 */ ZELDA_ACTION_5,
+    /* 06 */ ZELDA_ACTION_6,
+    /* 07 */ ZELDA_ACTION_7,
+    /* 08 */ ZELDA_ACTION_8,
+    /* 09 */ ZELDA_ACTION_9,
+    /* 10 */ ZELDA_ACTION_10,
+    /* 11 */ ZELDA_ACTION_11,
+    /* 12 */ ZELDA_ACTION_12,
+    /* 13 */ ZELDA_ACTION_13,
+    /* 14 */ ZELDA_ACTION_14,
+    /* 15 */ ZELDA_ACTION_15,
+    /* 16 */ ZELDA_ACTION_16,
+    /* 17 */ ZELDA_ACTION_17,
+    /* 18 */ ZELDA_ACTION_18,
+    /* 19 */ ZELDA_ACTION_19,
+    /* 20 */ ZELDA_ACTION_20,
+    /* 21 */ ZELDA_ACTION_21,
+    /* 22 */ ZELDA_ACTION_22,
+    /* 23 */ ZELDA_ACTION_23,
+    /* 24 */ ZELDA_ACTION_24,
+    /* 25 */ ZELDA_ACTION_25,
+    /* 26 */ ZELDA_ACTION_26,
+    /* 27 */ ZELDA_ACTION_27,
+    /* 28 */ ZELDA_ACTION_28,
+    /* 29 */ ZELDA_ACTION_29,
+    /* 30 */ ZELDA_ACTION_30,
+    /* 31 */ ZELDA_ACTION_31,
+    /* 32 */ ZELDA_ACTION_32,
+    /* 33 */ ZELDA_ACTION_33,
+    /* 34 */ ZELDA_ACTION_34,
+    /* 35 */ ZELDA_ACTION_35,
+    /* 36 */ ZELDA_ACTION_36,
+    /* 37 */ ZELDA_ACTION_37,
+    /* 38 */ ZELDA_ACTION_38,
+    /* 39 */ ZELDA_ACTION_39,
+    /* 40 */ ZELDA_ACTION_40
+} ZeldaAction;
+
 static void* sEyeTextures[] = { gZelda2EyeOpenTex, gZelda2EyeHalfTex, gZelda2EyeShutTex, gZelda2Eye03Tex,
                                 gZelda2Eye04Tex,   gZelda2Eye05Tex,   gZelda2Eye06Tex,   NULL };
 
@@ -177,7 +221,7 @@ void EnZl3_CheckShouldTrackPlayer(EnZl3* this) {
     s16 yawTowardsPlayer = this->actor.yawTowardsPlayer;
     s16* rotY = &this->actor.world.rot.y;
 
-    //Check if the difference between rotations is >= 30 degrees
+    // Check if the difference between rotations is >= 30 degrees
     if (ABS((s16)(yawTowardsPlayer - *rotY)) >= 0x1556) {
         shouldTrackPlayer = 1;
     }
@@ -225,7 +269,7 @@ void func_80B53980(EnZl3* thisx, s16 y, s32 idx) {
             }
         }
 
-        if ((idx != 0 || action != 4) && (temp2BC != 0)) {
+        if ((idx != 0 || action != ZELDA_ACTION_4) && (temp2BC != 0)) {
             temp25C += (temp2BC - temp25C) / 16;
         }
 
@@ -242,7 +286,7 @@ void func_80B53980(EnZl3* thisx, s16 y, s32 idx) {
             temp28C = y;
             temp25C = 0;
         }
-        if (idx == 0 && action == 3) {
+        if (idx == 0 && action == ZELDA_ACTION_3) {
             yTemp = y + -11000;
             if (skelAnime->mode == 2) {
                 curFrame = skelAnime->curFrame;
@@ -320,19 +364,19 @@ void func_80B53B64(EnZl3* this, s16 z, s32 idx) {
             phi_v1 += ABS(this->unk_25C[idx25C]) / 3;
         }
 
-        if (idx == 2 && (action == 5 || action == 24)) {
+        if (idx == 2 && (action == ZELDA_ACTION_5 || action == ZELDA_ACTION_24)) {
             if (phi_v1 != 0) {
                 s32 pad;
 
                 phi_v0 -= (phi_v1 - phi_v0) / 10;
             }
-        } else if (idx == 2 && action == 22 && skelAnime->mode == 2) {
+        } else if (idx == 2 && action == ZELDA_ACTION_22 && skelAnime->mode == 2) {
             if (phi_v1 != 0) {
                 s32 pad;
 
                 phi_v0 -= (phi_v1 - phi_v0) / 10;
             }
-        } else if (idx == 2 && (action == 20 || action == 21) && skelAnime->mode == 2) {
+        } else if (idx == 2 && (action == ZELDA_ACTION_20 || action == ZELDA_ACTION_21) && skelAnime->mode == 2) {
             if (phi_v1 != 0) {
                 s32 pad;
 
@@ -363,7 +407,7 @@ void func_80B53B64(EnZl3* this, s16 z, s32 idx) {
         }
 
         if (idx == 2) {
-            if (action == 4) {
+            if (action == ZELDA_ACTION_4) {
                 if (skelAnime->mode == 2) {
                     f32 curFrame = skelAnime->curFrame;
                     f32 unk_3E0 = this->unk_3E0;
@@ -376,7 +420,7 @@ void func_80B53B64(EnZl3* this, s16 z, s32 idx) {
                         }
                     }
                 }
-            } else if (action == 5) {
+            } else if (action == ZELDA_ACTION_5) {
                 if (skelAnime->mode == 2) {
                     f32 curFrame = skelAnime->curFrame;
                     f32 unk_3E4 = this->unk_3E4;
@@ -398,7 +442,7 @@ void func_80B53B64(EnZl3* this, s16 z, s32 idx) {
                         }
                     }
                 }
-            } else if ((action == 20) || (action == 21)) {
+            } else if ((action == ZELDA_ACTION_20) || (action == ZELDA_ACTION_21)) {
                 if (skelAnime->mode == 2) {
                     f32 curFrame = skelAnime->curFrame;
                     f32 unk_3F4 = this->unk_3F4;
@@ -426,7 +470,7 @@ void func_80B53B64(EnZl3* this, s16 z, s32 idx) {
                         }
                     }
                 }
-            } else if (action == 22) {
+            } else if (action == ZELDA_ACTION_22) {
                 if (skelAnime->mode == 2) {
                     f32 curFrame = skelAnime->curFrame;
                     f32 unk_3EC = this->unk_3EC;
@@ -448,7 +492,7 @@ void func_80B53B64(EnZl3* this, s16 z, s32 idx) {
                         }
                     }
                 }
-            } else if (action == 23) {
+            } else if (action == ZELDA_ACTION_23) {
                 if (skelAnime->mode == 2) {
                     f32 curFrame = skelAnime->curFrame;
                     f32 unk_3F0 = this->unk_3F0;
@@ -470,7 +514,7 @@ void func_80B53B64(EnZl3* this, s16 z, s32 idx) {
                         }
                     }
                 }
-            } else if (action == 24) {
+            } else if (action == ZELDA_ACTION_24) {
                 if (skelAnime->mode == 2) {
                     f32 curFrame = skelAnime->curFrame;
                     f32 unk_3E8 = this->unk_3E8;
@@ -494,7 +538,7 @@ void func_80B53B64(EnZl3* this, s16 z, s32 idx) {
                 }
             }
         } else if (idx == 11 || idx == 17) {
-            if (action == 4) {
+            if (action == ZELDA_ACTION_4) {
                 if (skelAnime->mode == 2) {
                     f32 curFrame = skelAnime->curFrame;
                     f32 unk_3E0 = this->unk_3E0;
@@ -516,7 +560,7 @@ void func_80B53B64(EnZl3* this, s16 z, s32 idx) {
                         }
                     }
                 }
-            } else if (action == 5) {
+            } else if (action == ZELDA_ACTION_5) {
                 if (skelAnime->mode == 2) {
                     f32 curFrame = skelAnime->curFrame;
                     f32 unk_3E4 = this->unk_3E4;
@@ -603,7 +647,8 @@ void func_80B54360(EnZl3* this, s16 arg1, s32 arg2) {
     this->unk_2BC[arg2] = arg1;
 }
 
-s32 EnZl3_OverrideLimbDrawFunc(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx, Gfx** gfx) {
+s32 EnZl3_OverrideLimbDrawFunc(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+                               Gfx** gfx) {
     s32 pad[2];
     EnZl3* this = (EnZl3*)thisx;
     Vec3s* headRot = &this->interactInfo.headRot;
@@ -730,22 +775,23 @@ void EnZl3_PostLimbDraw(PlayState* play, s32 limbIndex, Gfx** dList, Vec3s* rot,
     }
 }
 
-s32 func_80B54DB4(EnZl3* this) {
+// TODO: Rename functions w/ semantically meaningful param names
+s32 EnZl3_GetUpperParams(EnZl3* this) {
     s32 params = this->actor.params >> 8;
 
-    return params & 0xFF; //ret 9-15 bits
+    return params & 0xFF; // ret 9-15 bits
 }
 
-s32 func_80B54DC4(EnZl3* this) {
+s32 EnZl3_GetMiddleParams(EnZl3* this) {
     s32 params = this->actor.params >> 4;
 
-    return params & 0xF; //ret 5-8 bits
+    return params & 0xF; // ret 5-8 bits
 }
 
-s32 func_80B54DD4(EnZl3* this) {
+s32 EnZl3_GetLowerParams(EnZl3* this) {
     s32 params = this->actor.params;
 
-    return params & 0xF; //ret bottom 4 bits
+    return params & 0xF; // ret bottom 4 bits
 }
 
 void EnZl3_UpdateObjectSegment(EnZl3* this, PlayState* play) {
@@ -769,7 +815,7 @@ void EnZl3_SetAnimation(EnZl3* this, AnimationHeader* animation, u8 mode, f32 mo
         endFrame = 0.0f;
         playbackSpeed = -1.0f;
     }
-    
+
     Animation_Change(&this->skelAnime, animation, playbackSpeed, startFrame, endFrame, mode, morphFrames);
 }
 
@@ -797,12 +843,12 @@ void EnZl3_SpawnWarpOnce(EnZl3* this, PlayState* play) {
     }
 }
 
-void func_80B54FB4(EnZl3* this, PlayState* play) {
+void En_Zl3_Actor_inFinal_Init(EnZl3* this, PlayState* play) {
     PRINTF("ゼルダ姫のEn_Zl3_Actor_inFinal_Init通すよ!!!!!!!!!!!!!!!!!!!!!!!!!\n");
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_008AD0, 0, 0.0f, 0);
     EnZl3_setEyeIndex(this, 4);
     EnZl3_setMouthIndex(this, 2);
-    this->action = 1;
+    this->action = ZELDA_ACTION_1;
     this->drawConfig = 1;
     EnZl3_SpawnWarpOnce(this, play);
     this->actor.shape.rot.z = 0;
@@ -841,7 +887,7 @@ void EnZl3_MoveChildToSelf(EnZl3* this) {
     }
 }
 
-//Reverse-blink once, then return to the regular blink cycle
+// Reverse-blink once, then return to the regular blink cycle
 void EnZl3_OpenEyes(EnZl3* this) {
     static f32 blinkTimer = 0.0f;
 
@@ -858,18 +904,18 @@ void EnZl3_OpenEyes(EnZl3* this) {
 
 void func_80B551E0(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_008AD0, 0, 0.0f, 0);
-    this->action = 1;
+    this->action = ZELDA_ACTION_1;
 }
 
 void func_80B55220(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_0091D8, 2, 0.0f, 0);
-    this->action = 2;
+    this->action = ZELDA_ACTION_2;
     EnZl3_setMouthIndex(this, 0);
 }
 
 void func_80B55268(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_0091D8, 2, 0.0f, 0);
-    this->action = 3;
+    this->action = ZELDA_ACTION_3;
 }
 
 void func_80B552A8(EnZl3* this, s32 arg1) {
@@ -882,7 +928,7 @@ void func_80B552DC(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_00A598, 2, -8.0f, 0);
     EnZl3_PlayPainGasp(this);
     EnZl3_setMouthIndex(this, 2);
-    this->action = 4;
+    this->action = ZELDA_ACTION_4;
     EnZl3_PlayEscapeBGM();
 }
 
@@ -895,7 +941,7 @@ void func_80B55334(EnZl3* this, s32 arg1) {
 void func_80B55368(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_00A334, 2, -8.0f, 0);
     EnZl3_setMouthIndex(this, 0);
-    this->action = 5;
+    this->action = ZELDA_ACTION_5;
 }
 
 void func_80B553B4(EnZl3* this, s32 arg1) {
@@ -962,7 +1008,7 @@ void func_80B55444(EnZl3* this, PlayState* play) {
     }
 }
 
-void func_80B55550(EnZl3* this, PlayState* play) {
+void func_ACTION_1(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateSkelAnime(this);
@@ -970,7 +1016,7 @@ void func_80B55550(EnZl3* this, PlayState* play) {
     func_80B55444(this, play);
 }
 
-void func_80B555A4(EnZl3* this, PlayState* play) {
+void func_ACTION_2(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_setEyeIndex(this, 2);
@@ -979,7 +1025,7 @@ void func_80B555A4(EnZl3* this, PlayState* play) {
     func_80B55444(this, play);
 }
 
-void func_80B55604(EnZl3* this, PlayState* play) {
+void func_ACTION_3(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_OpenEyes(this);
@@ -988,7 +1034,7 @@ void func_80B55604(EnZl3* this, PlayState* play) {
     func_80B55444(this, play);
 }
 
-void func_80B5566C(EnZl3* this, PlayState* play) {
+void func_ACTION_4(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -996,7 +1042,7 @@ void func_80B5566C(EnZl3* this, PlayState* play) {
     func_80B55444(this, play);
 }
 
-void func_80B556CC(EnZl3* this, PlayState* play) {
+void func_ACTION_5(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -1004,7 +1050,7 @@ void func_80B556CC(EnZl3* this, PlayState* play) {
     func_80B55444(this, play);
 }
 
-void func_80B5572C(EnZl3* this, PlayState* play) {
+void func_ACTION_6(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -1012,17 +1058,17 @@ void func_80B5572C(EnZl3* this, PlayState* play) {
     func_80B55444(this, play);
 }
 
-void func_80B55780(EnZl3* this, PlayState* play) {
+void En_Zl3_Actor_inFinal2_Init(EnZl3* this, PlayState* play) {
     PRINTF("ゼルダ姫のEn_Zl3_Actor_inFinal2_Init通すよ!!!!!!!!!!!!!!!!!!!!!!!!!\n");
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_005A0C, 0, 0.0f, 0);
-    this->action = 7;
+    this->action = ZELDA_ACTION_7;
     this->drawConfig = 1;
     PRINTF("ゼルダ姫のEn_Zl3_Actor_inFinal2_Initは通った!!!!!!!!!!!!!!!!!!!!!!!!!\n");
     EnZl3_setMouthIndex(this, 1);
     this->actor.flags &= ~ACTOR_FLAG_0;
 }
 
-//Identical to EnZl3_PlayPainGasp
+// Identical to EnZl3_PlayPainGasp
 void EnZl3_PlayPainGasp2(EnZl3* this) {
     Sfx_PlaySfxAtPos(&this->actor.projectedPos, NA_SE_VO_Z1_PAIN);
 }
@@ -1033,7 +1079,7 @@ void EnZl3_PlayRandomCry(EnZl3* this) {
     Audio_PlaySfxRandom(&origin, NA_SE_VO_Z1_CRY_0, NA_SE_VO_Z1_CRY_1 - NA_SE_VO_Z1_CRY_0 + 1);
 }
 
-void func_80B5585C(EnZl3* this) {
+void EnZl3_PlayPainGaspOnAnimFrame(EnZl3* this) {
     SkelAnime* skelAnime = &this->skelAnime;
 
     if ((skelAnime->mode == 2) && Animation_OnFrame(skelAnime, 4.0f)) {
@@ -1064,7 +1110,7 @@ void func_80B559C4(EnZl3* this) {
     thisPos->z = unk_32C->z + (temp_f0 * (unk_338->z - unk_32C->z));
 }
 
-void func_80B55A58(EnZl3* this, PlayState* play) {
+void EnZl3_TrackPlayerOnMainCamera(EnZl3* this, PlayState* play) {
     if (play->activeCamId == CAM_ID_MAIN) {
         EnZl3_TrackPlayer(this);
     }
@@ -1072,12 +1118,12 @@ void func_80B55A58(EnZl3* this, PlayState* play) {
 
 void func_80B55A84(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_005A0C, 0, 0.0f, 0);
-    this->action = 7;
+    this->action = ZELDA_ACTION_7;
 }
 
 void func_80B55AC4(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_00499C, 2, -8.0f, 0);
-    this->action = 8;
+    this->action = ZELDA_ACTION_8;
 }
 
 void func_80B55B04(EnZl3* this, s32 arg1) {
@@ -1088,7 +1134,7 @@ void func_80B55B04(EnZl3* this, s32 arg1) {
 
 void func_80B55B38(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_006508, 2, -8.0f, 0);
-    this->action = 9;
+    this->action = ZELDA_ACTION_9;
 }
 
 void func_80B55B78(EnZl3* this, s32 arg1) {
@@ -1102,12 +1148,12 @@ void func_80B55BAC(EnZl3* this) {
     func_80B558A8(this);
     EnZl3_PlayPainGasp2(this);
     EnZl3_setMouthIndex(this, 2);
-    this->action = 10;
+    this->action = ZELDA_ACTION_10;
 }
 
 void func_80B55C0C(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_0054E0, 0, 0.0f, 0);
-    this->action = 11;
+    this->action = ZELDA_ACTION_11;
 }
 
 void func_80B55C4C(EnZl3* this, s32 arg1) {
@@ -1118,7 +1164,7 @@ void func_80B55C4C(EnZl3* this, s32 arg1) {
 
 void func_80B55C70(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_008684, 2, -8.0f, 0);
-    this->action = 12;
+    this->action = ZELDA_ACTION_12;
     this->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
     this->actor.flags &= ~ACTOR_FLAG_0;
 }
@@ -1131,7 +1177,7 @@ void func_80B55CCC(EnZl3* this, s32 arg1) {
 
 void func_80B55D00(EnZl3* this, PlayState* play) {
     if (Actor_TalkOfferAccepted(&this->actor, play)) {
-        this->action = 13;
+        this->action = ZELDA_ACTION_13;
     } else if (ABS((s16)(this->actor.yawTowardsPlayer - this->actor.shape.rot.y)) <= 0x4300) {
         this->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
         this->actor.flags |= ACTOR_FLAG_0;
@@ -1147,13 +1193,13 @@ void func_80B55DB0(EnZl3* this, PlayState* play) {
     if (Message_GetState(&play->msgCtx) == TEXT_STATE_CLOSING) {
         this->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
         this->actor.flags &= ~ACTOR_FLAG_0;
-        this->action = 12;
+        this->action = ZELDA_ACTION_12;
     }
 }
 
 void func_80B55E08(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_006AB0, 2, -8.0f, 0);
-    this->action = 14;
+    this->action = ZELDA_ACTION_14;
 }
 
 void func_80B55E48(EnZl3* this, s32 arg1) {
@@ -1164,7 +1210,7 @@ void func_80B55E48(EnZl3* this, s32 arg1) {
 
 void func_80B55E7C(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_007A78, 2, -8.0f, 0);
-    this->action = 15;
+    this->action = ZELDA_ACTION_15;
 }
 
 void func_80B55EBC(EnZl3* this, s32 arg1) {
@@ -1175,7 +1221,7 @@ void func_80B55EBC(EnZl3* this, s32 arg1) {
 
 void func_80B55EF0(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_0082F8, 2, -8.0f, 0);
-    this->action = 16;
+    this->action = ZELDA_ACTION_16;
     EnZl3_setMouthIndex(this, 0);
 }
 
@@ -1187,7 +1233,7 @@ void func_80B55F38(EnZl3* this, s32 arg1) {
 
 void func_80B55F6C(EnZl3* this, PlayState* play) {
     if (Actor_TalkOfferAccepted(&this->actor, play)) {
-        this->action = 0x12;
+        this->action = ZELDA_ACTION_18;
     } else if (ABS((s16)(this->actor.yawTowardsPlayer - this->actor.shape.rot.y)) <= 0x4300) {
         BossGanon2* bossGanon2 = EnZl3_GetGanon(this, play);
 
@@ -1205,7 +1251,7 @@ void func_80B55F6C(EnZl3* this, PlayState* play) {
 
 void func_80B5604C(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_007664, 2, -8.0f, 0);
-    this->action = 17;
+    this->action = ZELDA_ACTION_17;
     EnZl3_PlayRandomCry(this);
 }
 
@@ -1215,7 +1261,7 @@ void func_80B56090(EnZl3* this, s32 arg1) {
     if (EnZl3_Get_unk_3C8(this) == *unk_2F0) {
         if (arg1 != 0) {
             EnZl3_SetAnimation(this, &gZelda2Anime2Anim_003FF8, 0, 0.0f, 0);
-            this->action = 16;
+            this->action = ZELDA_ACTION_16;
             EnZl3_Set_unk_3C8(this, 7);
             this->unk_2F0 = 7;
         }
@@ -1226,18 +1272,18 @@ void func_80B56108(EnZl3* this, PlayState* play) {
     if (Message_GetState(&play->msgCtx) == TEXT_STATE_CLOSING) {
         this->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
         this->actor.flags &= ~ACTOR_FLAG_0;
-        this->action = 16;
+        this->action = ZELDA_ACTION_16;
     }
 }
 
 void func_80B56160(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_0001D8, 0, 0.0f, 0);
-    this->action = 19;
+    this->action = ZELDA_ACTION_19;
 }
 
 void func_80B561A0(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_001110, 2, -8.0f, 0);
-    this->action = 20;
+    this->action = ZELDA_ACTION_20;
 }
 
 void func_80B561E0(EnZl3* this, s32 arg1) {
@@ -1248,7 +1294,7 @@ void func_80B561E0(EnZl3* this, s32 arg1) {
 
 void func_80B56214(EnZl3* this, PlayState* play) {
     if (Actor_TalkOfferAccepted(&this->actor, play)) {
-        this->action = 21;
+        this->action = ZELDA_ACTION_21;
     } else if (ABS((s16)(this->actor.yawTowardsPlayer - this->actor.shape.rot.y)) <= 0x4300) {
         BossGanon2* bossGanon2 = EnZl3_GetGanon(this, play);
 
@@ -1270,13 +1316,13 @@ void func_80B562F4(EnZl3* this, PlayState* play) {
     if (Message_GetState(&play->msgCtx) == TEXT_STATE_CLOSING) {
         this->actor.flags &= ~(ACTOR_FLAG_0 | ACTOR_FLAG_3);
         this->actor.flags &= ~ACTOR_FLAG_0;
-        this->action = 20;
+        this->action = ZELDA_ACTION_20;
     }
 }
 
 void func_80B5634C(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_002348, 2, -8.0f, 0);
-    this->action = 22;
+    this->action = ZELDA_ACTION_22;
 }
 
 void func_80B5638C(EnZl3* this, s32 arg1) {
@@ -1287,7 +1333,7 @@ void func_80B5638C(EnZl3* this, s32 arg1) {
 
 void func_80B563C0(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_002E54, 2, -8.0f, 0);
-    this->action = 23;
+    this->action = ZELDA_ACTION_23;
 }
 
 void func_80B56400(EnZl3* this, s32 arg1) {
@@ -1298,7 +1344,7 @@ void func_80B56400(EnZl3* this, s32 arg1) {
 
 void func_80B56434(EnZl3* this) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_001D8C, 2, -8.0f, 0);
-    this->action = 24;
+    this->action = ZELDA_ACTION_24;
 }
 
 void func_80B56474(EnZl3* this, s32 arg1) {
@@ -1378,7 +1424,7 @@ void func_80B564A8(EnZl3* this, PlayState* play) {
     }
 }
 
-void func_80B56658(EnZl3* this, PlayState* play) {
+void func_ACTION_7(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -1386,7 +1432,7 @@ void func_80B56658(EnZl3* this, PlayState* play) {
     func_80B564A8(this, play);
 }
 
-void func_80B566AC(EnZl3* this, PlayState* play) {
+void func_ACTION_8(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -1394,7 +1440,7 @@ void func_80B566AC(EnZl3* this, PlayState* play) {
     func_80B564A8(this, play);
 }
 
-void func_80B5670C(EnZl3* this, PlayState* play) {
+void func_ACTION_9(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -1402,7 +1448,7 @@ void func_80B5670C(EnZl3* this, PlayState* play) {
     func_80B564A8(this, play);
 }
 
-void func_80B5676C(EnZl3* this, PlayState* play) {
+void func_ACTION_10(EnZl3* this, PlayState* play) {
     s32 something;
 
     EnZl3_UpdateObjectSegment(this, play);
@@ -1413,7 +1459,7 @@ void func_80B5676C(EnZl3* this, PlayState* play) {
     func_80B55C4C(this, something);
 }
 
-void func_80B567CC(EnZl3* this, PlayState* play) {
+void func_ACTION_11(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateCollider(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
@@ -1422,9 +1468,9 @@ void func_80B567CC(EnZl3* this, PlayState* play) {
     func_80B564A8(this, play);
 }
 
-void func_80B5682C(EnZl3* this, PlayState* play) {
+void func_ACTION_12(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
-    func_80B55A58(this, play);
+    EnZl3_TrackPlayerOnMainCamera(this, play);
     EnZl3_UpdateCollider(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -1433,7 +1479,7 @@ void func_80B5682C(EnZl3* this, PlayState* play) {
     func_80B55D00(this, play);
 }
 
-void func_80B568B4(EnZl3* this, PlayState* play) {
+void func_ACTION_13(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_TrackPlayer(this);
     EnZl3_UpdateCollider(this, play);
@@ -1443,7 +1489,7 @@ void func_80B568B4(EnZl3* this, PlayState* play) {
     func_80B55DB0(this, play);
 }
 
-void func_80B5691C(EnZl3* this, PlayState* play) {
+void func_ACTION_14(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -1451,16 +1497,16 @@ void func_80B5691C(EnZl3* this, PlayState* play) {
     func_80B564A8(this, play);
 }
 
-void func_80B5697C(EnZl3* this, PlayState* play) {
+void func_ACTION_15(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
     func_80B55EBC(this, EnZl3_UpdateSkelAnime(this));
-    func_80B5585C(this);
+    EnZl3_PlayPainGaspOnAnimFrame(this);
     func_80B564A8(this, play);
 }
 
-void func_80B569E4(EnZl3* this, PlayState* play) {
+void func_ACTION_16(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateCollider(this, play);
     EnZl3_TrackPlayer(this);
@@ -1471,7 +1517,7 @@ void func_80B569E4(EnZl3* this, PlayState* play) {
     func_80B55F6C(this, play);
 }
 
-void func_80B56A68(EnZl3* this, PlayState* play) {
+void func_ACTION_17(EnZl3* this, PlayState* play) {
     s32 something;
 
     EnZl3_UpdateObjectSegment(this, play);
@@ -1484,7 +1530,7 @@ void func_80B56A68(EnZl3* this, PlayState* play) {
     func_80B56090(this, something);
 }
 
-void func_80B56AE0(EnZl3* this, PlayState* play) {
+void func_ACTION_18(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateCollider(this, play);
     EnZl3_TrackPlayer(this);
@@ -1494,7 +1540,7 @@ void func_80B56AE0(EnZl3* this, PlayState* play) {
     func_80B56108(this, play);
 }
 
-void func_80B56B54(EnZl3* this, PlayState* play) {
+void func_ACTION_19(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -1502,7 +1548,7 @@ void func_80B56B54(EnZl3* this, PlayState* play) {
     func_80B564A8(this, play);
 }
 
-void func_80B56BA8(EnZl3* this, PlayState* play) {
+void func_ACTION_20(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateCollider(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
@@ -1512,7 +1558,7 @@ void func_80B56BA8(EnZl3* this, PlayState* play) {
     func_80B56214(this, play);
 }
 
-void func_80B56C24(EnZl3* this, PlayState* play) {
+void func_ACTION_21(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateCollider(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
@@ -1521,7 +1567,7 @@ void func_80B56C24(EnZl3* this, PlayState* play) {
     func_80B562F4(this, play);
 }
 
-void func_80B56C84(EnZl3* this, PlayState* play) {
+void func_ACTION_22(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -1529,7 +1575,7 @@ void func_80B56C84(EnZl3* this, PlayState* play) {
     func_80B564A8(this, play);
 }
 
-void func_80B56CE4(EnZl3* this, PlayState* play) {
+void func_ACTION_23(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -1537,7 +1583,7 @@ void func_80B56CE4(EnZl3* this, PlayState* play) {
     func_80B564A8(this, play);
 }
 
-void func_80B56D44(EnZl3* this, PlayState* play) {
+void func_ACTION_24(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
@@ -1549,7 +1595,8 @@ void func_80B56DA4(EnZl3* this) {
     Sfx_PlaySfxCentered2(NA_SE_EV_ZELDA_POWER);
 }
 
-void func_80B56DC8(EnZl3* this) {
+//Identical to EnZl3_PlayPainGasp
+void EnZl3_PlayPainGasp3(EnZl3* this) {
     Sfx_PlaySfxAtPos(&this->actor.projectedPos, NA_SE_VO_Z1_PAIN);
 }
 
@@ -1575,11 +1622,11 @@ void func_80B56E38(EnZl3* this, PlayState* play) {
 }
 
 void func_80B56EB8(EnZl3* this, PlayState* play) {
-    Flags_SetSwitch(play, func_80B54DB4(this));
+    Flags_SetSwitch(play, EnZl3_GetUpperParams(this));
 }
 
 s32 func_80B56EE4(EnZl3* this, PlayState* play) {
-    return Flags_GetSwitch(play, func_80B54DB4(this));
+    return Flags_GetSwitch(play, EnZl3_GetUpperParams(this));
 }
 
 void func_80B56F10(EnZl3* this, PlayState* play) {
@@ -1587,51 +1634,51 @@ void func_80B56F10(EnZl3* this, PlayState* play) {
     Path* pathHead = play->pathList;
 
     if (pathHead != NULL) {
-        waypoint = func_80B54DC4(this);
+        waypoint = EnZl3_GetMiddleParams(this);
         pathHead += waypoint;
-        this->unk_30C = pathHead;
-        this->unk_310 = pathHead->count;
+        this->path = pathHead;
+        this->pathLength = pathHead->count;
         PRINTF("En_Zl3_Get_path_info レールデータをゲットだぜ = %d!!!!!!!!!!!!!!\n", waypoint);
     } else {
         PRINTF("En_Zl3_Get_path_info レールデータが無い!!!!!!!!!!!!!!!!!!!!\n");
     }
 }
 
-s32 func_80B56F8C(EnZl3* this, s32 arg1) {
-    s32 unk_310 = this->unk_310;
+s32 EnZl3_PathLongerThan(EnZl3* this, s32 compareTo) {
+    s32 pathLength = this->pathLength;
 
-    if (unk_310 > arg1) {
+    if (pathLength > compareTo) {
         return 1;
     }
     return 0;
 }
 
-Vec3s* func_80B56FAC(EnZl3* this, s32 arg1) {
+Vec3s* EnZl3_GetPathPoint(EnZl3* this, s32 pointIndex) {
     Vec3s* point;
-    Path* pathList = this->unk_30C;
+    Path* pathList = this->path;
 
-    if ((pathList != NULL) && func_80B56F8C(this, arg1)) {
-        point = &((Vec3s*)SEGMENTED_TO_VIRTUAL(pathList->points))[arg1];
+    if ((pathList != NULL) && EnZl3_PathLongerThan(this, pointIndex)) {
+        point = &((Vec3s*)SEGMENTED_TO_VIRTUAL(pathList->points))[pointIndex];
         return point;
     }
     return NULL;
 }
 
-s32 func_80B57034(EnZl3* this, s32 arg1, s32 arg2) {
-    Vec3s* vec1 = func_80B56FAC(this, arg1);
-    Vec3s* vec2 = func_80B56FAC(this, arg2);
+s32 EnZl3_AngleBetweenPathPoints(EnZl3* this, s32 pointIndex1, s32 pointIndex2) {
+    Vec3s* point1 = EnZl3_GetPathPoint(this, pointIndex1);
+    Vec3s* point2 = EnZl3_GetPathPoint(this, pointIndex2);
 
-    if ((vec2 != NULL) && (vec1 != NULL)) {
-        f32 xDiff = vec2->x - vec1->x;
-        f32 zDiff = vec2->z - vec1->z;
+    if ((point2 != NULL) && (point1 != NULL)) {
+        f32 xDiff = point2->x - point1->x;
+        f32 zDiff = point2->z - point1->z;
 
         return ((xDiff == 0.0f) && (zDiff == 0.0f)) ? 0 : RAD_TO_BINANG(Math_FAtan2F(xDiff, zDiff));
     }
     return 0;
 }
 
-s16 func_80B57104(EnZl3* this, s32 arg1) {
-    Vec3s* point = func_80B56FAC(this, arg1);
+s16 EnZl3_AngleToPathPoint(EnZl3* this, s32 pointIndex) {
+    Vec3s* point = EnZl3_GetPathPoint(this, pointIndex);
 
     if (point != NULL) {
         f32 xDiff = point->x - this->actor.world.pos.x;
@@ -1644,46 +1691,46 @@ s16 func_80B57104(EnZl3* this, s32 arg1) {
     return 0;
 }
 
-s32 func_80B571A8(EnZl3* this) {
+s32 EnZl3_AngleToNextPathPoint(EnZl3* this) {
     s32 pad;
-    s32 unk_314 = this->unk_314;
+    s32 pathPointIndex = this->pathPointIndex;
     s32 pad2;
 
-    if (func_80B56F8C(this, unk_314 + 1) == 0) {
+    if (EnZl3_PathLongerThan(this, pathPointIndex + 1) == 0) {
         return this->actor.shape.rot.y;
     } else {
-        return func_80B57034(this, unk_314, unk_314 + 1);
+        return EnZl3_AngleBetweenPathPoints(this, pathPointIndex, pathPointIndex + 1);
     }
 }
 
-s32 func_80B571FC(EnZl3* this) {
+s32 EnZl3_GetTargetFacingAngle(EnZl3* this) {
     s32 pad;
-    s32 unk_314 = this->unk_314;
+    s32 pathPointIndex = this->pathPointIndex;
 
-    if (func_80B56F8C(this, unk_314) == 0) {
+    if (EnZl3_PathLongerThan(this, pathPointIndex) == 0) {
         return this->actor.shape.rot.y;
     } else {
-        return func_80B57104(this, unk_314);
+        return EnZl3_AngleToPathPoint(this, pathPointIndex);
     }
 }
 
-void func_80B57240(EnZl3* this) {
-    s32 temp_a1 = func_80B571FC(this);
+void EnZl3_TurnToTargetPointInternal(EnZl3* this) {
+    s32 target = EnZl3_GetTargetFacingAngle(this);
     s16* rotY = &this->actor.world.rot.y;
 
-    Math_SmoothStepToS(rotY, temp_a1, 2, 6400, 1000);
+    Math_SmoothStepToS(rotY, target, 2, 6400, 1000);
     this->actor.shape.rot.y = *rotY;
 }
 
-void func_80B57298(EnZl3* this) {
+void EnZl3_TurnToNextPoint(EnZl3* this) {
     s16* rotY = &this->actor.world.rot.y;
-    s16 temp_a1 = func_80B571A8(this);
+    s16 target = EnZl3_AngleToNextPathPoint(this);
 
-    Math_SmoothStepToS(rotY, temp_a1, 2, 6400, 1000);
+    Math_SmoothStepToS(rotY, target, 2, 6400, 1000);
     this->actor.shape.rot.y = *rotY;
 }
 
-u16 func_80B572F0(PlayState* play) {
+u16 EnZl3_GetTextIDForCurrentScene(PlayState* play) {
     s16 sceneId = play->sceneId;
     u16 ret;
 
@@ -1697,7 +1744,7 @@ u16 func_80B572F0(PlayState* play) {
     return ret;
 }
 
-s32 func_80B57324(EnZl3* this, PlayState* play) {
+s32 EnZl3_TalkOfferAccepted(EnZl3* this, PlayState* play) {
     if (Actor_TalkOfferAccepted(&this->actor, play)) {
         return 1;
     }
@@ -1709,12 +1756,12 @@ void func_80B57350(EnZl3* this, PlayState* play) {
 
     if (ABS(temp_v0) <= 0x4300) {
         this->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
-        this->actor.textId = func_80B572F0(play);
+        this->actor.textId = EnZl3_GetTextIDForCurrentScene(play);
         Actor_OfferTalkNearColChkInfoCylinder(&this->actor, play);
     }
 }
 
-s32 func_80B573C8(EnZl3* this, PlayState* play) {
+s32 EnZl3_TextClosing(EnZl3* this, PlayState* play) {
     if (Message_GetState(&play->msgCtx) == TEXT_STATE_CLOSING) {
         return 1;
     }
@@ -1746,7 +1793,7 @@ s32 func_80B57458(EnZl3* this, PlayState* play) {
     f32 temp_f12 = playerX - thisX;
     f32 temp_f13 = playerZ - thisZ;
     s16 temp_v0;
-    s16 temp_v1 = func_80B571A8(this);
+    s16 temp_v1 = EnZl3_AngleToNextPathPoint(this);
 
     if (temp_f12 == 0.0f && temp_f13 == 0.0f) {
         return 1;
@@ -1781,10 +1828,10 @@ s32 func_80B575D0(EnZl3* this, PlayState* play) {
 s32 func_80B575F0(EnZl3* this, PlayState* play) {
     s16 sceneId = play->sceneId;
 
-    if ((sceneId == SCENE_GANONS_TOWER_COLLAPSE_INTERIOR) && (func_80B54DB4(this) == 0x26)) {
-        s32 unk_314 = this->unk_314;
+    if ((sceneId == SCENE_GANONS_TOWER_COLLAPSE_INTERIOR) && (EnZl3_GetUpperParams(this) == 0x26)) {
+        s32 pathPointIndex = this->pathPointIndex;
 
-        if (unk_314 == 1) {
+        if (pathPointIndex == 1) {
             return 1;
         }
     }
@@ -1794,10 +1841,10 @@ s32 func_80B575F0(EnZl3* this, PlayState* play) {
 void func_80B5764C(EnZl3* this, PlayState* play) {
     s16 sceneId = play->sceneId;
 
-    if ((sceneId == SCENE_GANONS_TOWER_COLLAPSE_INTERIOR) && (func_80B54DB4(this) == 0x26)) {
-        s32 unk_314 = this->unk_314 + 1;
+    if ((sceneId == SCENE_GANONS_TOWER_COLLAPSE_INTERIOR) && (EnZl3_GetUpperParams(this) == 0x26)) {
+        s32 pathPointIndex = this->pathPointIndex + 1;
 
-        if ((unk_314 == 1) && !Play_InCsMode(play)) {
+        if ((pathPointIndex == 1) && !Play_InCsMode(play)) {
             OnePointCutscene_Init(play, 1000, 40, &this->actor, CAM_ID_MAIN);
         }
     }
@@ -1859,7 +1906,7 @@ s32 func_80B57890(EnZl3* this, PlayState* play) {
     s8 pad[2];
     u8 spawn = play->spawn;
     s16 sceneId = play->sceneId;
-    s32 result = func_80B54DB4(this);
+    s32 result = EnZl3_GetUpperParams(this);
 
     if (play) {} // Needed to match, this if can be almost anywhere and it still matches
 
@@ -1918,9 +1965,9 @@ void func_80B57A74(PlayState* play) {
     }
 }
 
-void func_80B57AAC(EnZl3* this, s32 arg1, AnimationHeader* arg2) {
-    if (arg1 != 0) {
-        EnZl3_SetAnimation(this, arg2, 0, -8.0f, 0);
+void EnZl3_SetAnimationIfCurrentFinished(EnZl3* this, bool animFinished, AnimationHeader* animation) {
+    if (animFinished != false) {
+        EnZl3_SetAnimation(this, animation, 0, -8.0f, 0);
     }
 }
 
@@ -1935,12 +1982,12 @@ void func_80B57AE0(EnZl3* this, PlayState* play) {
     f32 zDiff;
 
     this->unk_344 = 0;
-    this->unk_314++;
+    this->pathPointIndex++;
     this->unk_360 = 0.0f;
     this->unk_364 = 0.0f;
     this->unk_368 = 0.0f;
     *unk_348 = this->actor.world.pos;
-    temp_v0 = func_80B56FAC(this, this->unk_314);
+    temp_v0 = EnZl3_GetPathPoint(this, this->pathPointIndex);
 
     if (temp_v0 != NULL) {
         unk_354->x = temp_v0->x;
@@ -1964,12 +2011,12 @@ s32 func_80B57C54(EnZl3* this) {
     return 0;
 }
 
-s32 func_80B57C7C(EnZl3* this, PlayState* play) {
+s32 EnZl3_True(EnZl3* this, PlayState* play) {
     return 1;
 }
 
 s32 func_80B57C8C(EnZl3* this) {
-    return !func_80B56F8C(this, this->unk_314 + 2);
+    return !EnZl3_PathLongerThan(this, this->pathPointIndex + 2);
 }
 
 void func_80B57CB4(EnZl3* this, PlayState* play) {
@@ -1985,8 +2032,8 @@ void func_80B57CB4(EnZl3* this, PlayState* play) {
     thisPos->z = unk_348->z + (temp_f0 * (unk_354->z - unk_348->z));
 }
 
-void func_80B57D60(EnZl3* this, PlayState* play) {
-    func_80B57240(this);
+void EnZl3_TurnToTargetPoint(EnZl3* this, PlayState* play) {
+    EnZl3_TurnToTargetPointInternal(this);
 }
 
 s32 func_80B57D80(EnZl3* this, PlayState* play) {
@@ -1994,20 +2041,20 @@ s32 func_80B57D80(EnZl3* this, PlayState* play) {
     s16* sp32 = &this->actor.shape.rot.y;
     NpcInteractInfo* interactInfo = &this->interactInfo;
     Player* player = GET_PLAYER(play);
-    s32 unk_314 = this->unk_314;
-    s16 temp_v0 = func_80B57104(this, unk_314);
+    s32 pathPointIndex = this->pathPointIndex;
+    s16 angleToPoint = EnZl3_AngleToPathPoint(this, pathPointIndex);
     s32 pad2;
     s16 phi_v1;
 
     interactInfo->trackPos.y = player->actor.world.pos.y;
-    interactInfo->trackPos.x = (Math_SinS(temp_v0) * this->actor.xzDistToPlayer) + this->actor.world.pos.x;
-    interactInfo->trackPos.z = (Math_CosS(temp_v0) * this->actor.xzDistToPlayer) + this->actor.world.pos.z;
+    interactInfo->trackPos.x = (Math_SinS(angleToPoint) * this->actor.xzDistToPlayer) + this->actor.world.pos.x;
+    interactInfo->trackPos.z = (Math_CosS(angleToPoint) * this->actor.xzDistToPlayer) + this->actor.world.pos.z;
     interactInfo->yOffset = kREG(16) - 16.0f;
     Npc_TrackPoint(&this->actor, interactInfo, kREG(17) + 0xC, NPC_TRACKING_FULL_BODY);
 
-    phi_v1 = ABS(temp_v0 - *sp32);
+    phi_v1 = ABS(angleToPoint - *sp32);
     if (phi_v1 <= 0x320) {
-        *sp32 = temp_v0;
+        *sp32 = angleToPoint;
         this->actor.world.rot.y = *sp32;
         phi_v1 = 0;
     }
@@ -2016,34 +2063,34 @@ s32 func_80B57D80(EnZl3* this, PlayState* play) {
 }
 
 void func_80B57EAC(EnZl3* this, PlayState* play) {
-    if (func_80B57324(this, play)) {
+    if (EnZl3_TalkOfferAccepted(this, play)) {
         s32 pad;
 
-        this->action = 26;
+        this->action = ZELDA_ACTION_26;
     } else {
         func_80B57350(this, play);
     }
 }
 
 void func_80B57EEC(EnZl3* this, PlayState* play) {
-    if (func_80B573C8(this, play)) {
-        this->action = 27;
+    if (EnZl3_TextClosing(this, play)) {
+        this->action = ZELDA_ACTION_27;
     }
 }
 
 void func_80B57F1C(EnZl3* this, PlayState* play) {
     if (func_80B57D80(this, play) == 0) {
         EnZl3_SetAnimation(this, &gZelda2Anime2Anim_009BE4, 0, -8.0f, 0);
-        this->action = 34;
-        this->unk_314--;
+        this->action = ZELDA_ACTION_34;
+        this->pathPointIndex--;
         func_80B57AE0(this, play);
     }
 }
 
 s32 func_80B57F84(EnZl3* this, PlayState* play) {
-    if (func_80B575D0(this, play) && func_80B57C7C(this, play) && !Play_InCsMode(play)) {
+    if (func_80B575D0(this, play) && EnZl3_True(this, play) && !Play_InCsMode(play)) {
         EnZl3_SetAnimation(this, &gZelda2Anime2Anim_009FBC, 0, -8.0f, 0);
-        this->action = 36;
+        this->action = ZELDA_ACTION_36;
         this->unk_2EC = 0.0f;
         func_80B57A74(play);
         return 1;
@@ -2056,9 +2103,9 @@ void func_80B58014(EnZl3* this, PlayState* play) {
     Player* player = GET_PLAYER(play);
     s8 invincibilityTimer = player->invincibilityTimer;
 
-    if (func_80B57324(this, play)) {
+    if (EnZl3_TalkOfferAccepted(this, play)) {
         EnZl3_SetAnimation(this, &gZelda2Anime2Anim_003FF8, 0, -11.0f, 0);
-        this->action = 29;
+        this->action = ZELDA_ACTION_29;
         EnZl3_CheckShouldTrackPlayer(this);
     } else if (func_80B57C8C(this) && func_80B57F84(this, play)) {
         s32 pad;
@@ -2066,7 +2113,7 @@ void func_80B58014(EnZl3* this, PlayState* play) {
         OnePointCutscene_Init(play, 4000, -99, &this->actor, CAM_ID_MAIN);
         this->trackPlayerSpeed = 0;
     } else if (func_80B576C8(this, play) && func_80B575B0(this, play) && !Play_InCsMode(play)) {
-        this->action = 0x1F;
+        this->action = ZELDA_ACTION_31;
         this->unk_3CC = 0.0f;
         EnZl3_TrackPlayer(this);
         this->unk_3D8 = 1;
@@ -2074,14 +2121,14 @@ void func_80B58014(EnZl3* this, PlayState* play) {
     } else if (!func_80B57C8C(this) && !func_80B576C8(this, play) && func_80B57564(this, play)) {
         EnZl3_SetAnimation(this, &gZelda2Anime2Anim_009BE4, 0, -8.0f, 0);
         func_80B5764C(this, play);
-        this->action = 34;
+        this->action = ZELDA_ACTION_34;
         this->trackPlayerSpeed = 0;
         func_80B57AE0(this, play);
     } else if ((invincibilityTimer > 0) || (player->fallDistance >= 0x33)) {
         EnZl3_SetAnimation(this, &gZelda2Anime2Anim_007664, 0, -11.0f, 0);
-        this->action = 30;
+        this->action = ZELDA_ACTION_30;
         EnZl3_TrackPlayer(this);
-        func_80B56DC8(this);
+        EnZl3_PlayPainGasp3(this);
     } else {
         func_80B57350(this, play);
         EnZl3_CheckShouldTrackPlayer(this);
@@ -2089,9 +2136,9 @@ void func_80B58014(EnZl3* this, PlayState* play) {
 }
 
 void func_80B58214(EnZl3* this, PlayState* play) {
-    if (func_80B573C8(this, play)) {
+    if (EnZl3_TextClosing(this, play)) {
         EnZl3_SetAnimation(this, &gZelda2Anime2Anim_009FBC, 0, -11.0f, 0);
-        this->action = 28;
+        this->action = ZELDA_ACTION_28;
         this->trackPlayerSpeed = 0;
     }
 }
@@ -2102,7 +2149,7 @@ void func_80B58268(EnZl3* this, PlayState* play) {
 
     if ((invincibilityTimer <= 0) && (player->fallDistance <= 50)) {
         EnZl3_SetAnimation(this, &gZelda2Anime2Anim_009FBC, 0, -11.0f, 0);
-        this->action = 28;
+        this->action = ZELDA_ACTION_28;
         this->trackPlayerSpeed = 0;
     }
 }
@@ -2117,7 +2164,7 @@ void func_80B582C8(EnZl3* this, PlayState* play) {
         func_80B57704(this, play);
     } else if (*unk_3CC == kREG(15) + 20.0f) {
         *unk_3CC += 1.0f;
-        func_80B56DC8(this);
+        EnZl3_PlayPainGasp3(this);
         EnZl3_SetAnimation(this, &gZelda2Anime2Anim_003FF8, 0, -12.0f, 0);
     } else if (*unk_3CC == kREG(16) + 30.0f) {
         *unk_3CC += 1.0f;
@@ -2126,7 +2173,7 @@ void func_80B582C8(EnZl3* this, PlayState* play) {
         Camera_SetFinishedFlag(GET_ACTIVE_CAM(play));
         *unk_3CC += 1.0f;
     } else if (*unk_3CC >= ((kREG(17) + 40.0f) + 1.0f)) {
-        this->action = 32;
+        this->action = ZELDA_ACTION_32;
         *unk_3CC = 0.0f;
     } else {
         *unk_3CC += 1.0f;
@@ -2143,18 +2190,18 @@ void func_80B584B4(EnZl3* this, PlayState* play) {
 
     if (D_80B5A4BC == 0) {
         if ((nearbyEnTest == NULL) && (!Play_InCsMode(play))) {
-            this->action = 33;
+            this->action = ZELDA_ACTION_33;
             OnePointCutscene_Init(play, 4011, -99, &this->actor, CAM_ID_MAIN);
         } else if (invincibilityTimer > 0) {
             EnZl3_SetAnimation(this, &gZelda2Anime2Anim_003FF8, 0, -12.0f, 0);
             D_80B5A4BC = 1;
-            func_80B56DC8(this);
+            EnZl3_PlayPainGasp3(this);
         }
     } else {
         if ((nearbyEnTest == NULL) && (!Play_InCsMode(play))) {
             EnZl3_SetAnimation(this, &gZelda2Anime2Anim_007664, 0, -12.0f, 0);
             D_80B5A4BC = 0;
-            this->action = 33;
+            this->action = ZELDA_ACTION_33;
             OnePointCutscene_Init(play, 4011, -99, &this->actor, CAM_ID_MAIN);
         } else if (invincibilityTimer <= 0) {
             EnZl3_SetAnimation(this, &gZelda2Anime2Anim_007664, 0, -12.0f, 0);
@@ -2189,7 +2236,7 @@ void func_80B58624(EnZl3* this, PlayState* play) {
         }
     } else {
         if (*unk_3CC >= kREG(20) + 30.0f) {
-            this->action = 28;
+            this->action = ZELDA_ACTION_28;
             Camera_SetFinishedFlag(GET_ACTIVE_CAM(play));
             EnZl3_SetAnimation(this, &gZelda2Anime2Anim_009FBC, 0, -12.0f, 0);
             *unk_3CC = 0.0f;
@@ -2201,26 +2248,26 @@ void func_80B58624(EnZl3* this, PlayState* play) {
 
 void func_80B5884C(EnZl3* this, PlayState* play) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_0038C0, 2, -8.0f, 0);
-    this->action = 37;
+    this->action = ZELDA_ACTION_37;
     this->unk_36C = 1;
 }
 
 void func_80B58898(EnZl3* this, PlayState* play) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_0038C0, 2, -8.0f, 1);
-    this->action = 38;
+    this->action = ZELDA_ACTION_38;
     this->unk_374 = 1;
 }
 
 void func_80B588E8(EnZl3* this, PlayState* play) {
     EnZl3_SetAnimation(this, &gZelda2Anime2Anim_009BE4, 0, -8.0f, 0);
     func_80B57AE0(this, play);
-    this->action = 39;
+    this->action = ZELDA_ACTION_39;
 }
 
 s32 func_80B58938(EnZl3* this, PlayState* play) {
     if (func_80B57C54(this)) {
         EnZl3_SetAnimation(this, &gZelda2Anime2Anim_009FBC, 0, -8.0f, 0);
-        this->action = 28;
+        this->action = ZELDA_ACTION_28;
         this->trackPlayerSpeed = 0;
         return 1;
     }
@@ -2234,8 +2281,8 @@ s32 func_80B5899C(EnZl3* this, PlayState* play) {
 
         if ((invincibilityTimer > 0) || (player->fallDistance >= 0x33)) {
             EnZl3_SetAnimation(this, &gZelda2Anime2Anim_007664, 2, -11.0f, 0);
-            this->action = 35;
-            func_80B56DC8(this);
+            this->action = ZELDA_ACTION_35;
+            EnZl3_PlayPainGasp3(this);
             return 1;
         }
     }
@@ -2254,7 +2301,7 @@ void func_80B58A50(EnZl3* this, PlayState* play) {
 
     if ((invincibilityTimer <= 0) && (player->fallDistance <= 50)) {
         EnZl3_SetAnimation(this, &gZelda2Anime2Anim_009BE4, 0, -11.0f, 0);
-        this->action = 34;
+        this->action = ZELDA_ACTION_34;
     }
 }
 
@@ -2306,7 +2353,7 @@ void func_80B58C08(EnZl3* this, PlayState* play) {
     }
 }
 
-void func_80B58D50(EnZl3* this, PlayState* play) {
+void func_ACTION_25(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateCollider(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
@@ -2315,7 +2362,7 @@ void func_80B58D50(EnZl3* this, PlayState* play) {
     func_80B57EAC(this, play);
 }
 
-void func_80B58DB0(EnZl3* this, PlayState* play) {
+void func_ACTION_26(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdateCollider(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
@@ -2324,7 +2371,7 @@ void func_80B58DB0(EnZl3* this, PlayState* play) {
     func_80B57EEC(this, play);
 }
 
-void func_80B58E10(EnZl3* this, PlayState* play) {
+void func_ACTION_27(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     Actor_SetFocus(&this->actor, 60.0f);
     EnZl3_UpdateCollider(this, play);
@@ -2334,7 +2381,7 @@ void func_80B58E10(EnZl3* this, PlayState* play) {
     func_80B57F1C(this, play);
 }
 
-void func_80B58E7C(EnZl3* this, PlayState* play) {
+void func_ACTION_28(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_UpdatePlayerTrackingTarget(this, play);
     EnZl3_UpdateCollider(this, play);
@@ -2345,7 +2392,7 @@ void func_80B58E7C(EnZl3* this, PlayState* play) {
     EnZl3_ClearCollisionFlags(this);
 }
 
-void func_80B58EF4(EnZl3* this, PlayState* play) {
+void func_ACTION_29(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_CheckShouldTrackPlayer(this);
     EnZl3_UpdatePlayerTrackingTarget(this, play);
@@ -2356,7 +2403,7 @@ void func_80B58EF4(EnZl3* this, PlayState* play) {
     func_80B58214(this, play);
 }
 
-void func_80B58F6C(EnZl3* this, PlayState* play) {
+void func_ACTION_30(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_TrackPlayer(this);
     EnZl3_SmoothStepToZeroRot(this);
@@ -2367,7 +2414,7 @@ void func_80B58F6C(EnZl3* this, PlayState* play) {
     func_80B58268(this, play);
 }
 
-void func_80B58FDC(EnZl3* this, PlayState* play) {
+void func_ACTION_31(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_TrackPlayer(this);
     EnZl3_SmoothStepToZeroRot(this);
@@ -2378,7 +2425,7 @@ void func_80B58FDC(EnZl3* this, PlayState* play) {
     func_80B582C8(this, play);
 }
 
-void func_80B5904C(EnZl3* this, PlayState* play) {
+void func_ACTION_32(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_TrackPlayer(this);
     EnZl3_SmoothStepToZeroRot(this);
@@ -2389,7 +2436,7 @@ void func_80B5904C(EnZl3* this, PlayState* play) {
     func_80B584B4(this, play);
 }
 
-void func_80B590BC(EnZl3* this, PlayState* play) {
+void func_ACTION_33(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_TrackPlayer(this);
     EnZl3_SmoothStepToZeroRot(this);
@@ -2400,7 +2447,7 @@ void func_80B590BC(EnZl3* this, PlayState* play) {
     func_80B58624(this, play);
 }
 
-void func_80B5912C(EnZl3* this, PlayState* play) {
+void func_ACTION_34(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_SmoothStepToZeroRot(this);
     EnZl3_UpdateCollider(this, play);
@@ -2409,11 +2456,11 @@ void func_80B5912C(EnZl3* this, PlayState* play) {
     EnZl3_UpdateEyes(this);
     EnZl3_UpdateSkelAnime(this);
     func_80B57CB4(this, play);
-    func_80B57D60(this, play);
+    EnZl3_TurnToTargetPoint(this, play);
     func_80B58A1C(this, play);
 }
 
-void func_80B591BC(EnZl3* this, PlayState* play) {
+void func_ACTION_35(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_SmoothStepToZeroRot(this);
     EnZl3_CheckShouldTrackPlayer(this);
@@ -2424,10 +2471,10 @@ void func_80B591BC(EnZl3* this, PlayState* play) {
     func_80B58A50(this, play);
 }
 
-void func_80B5922C(EnZl3* this, PlayState* play) {
+void func_ACTION_36(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_SmoothStepToZeroRot(this);
-    func_80B57298(this);
+    EnZl3_TurnToNextPoint(this);
     Actor_SetFocus(&this->actor, 60.0f);
     EnZl3_UpdateCollider(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
@@ -2436,35 +2483,35 @@ void func_80B5922C(EnZl3* this, PlayState* play) {
     func_80B58AAC(this, play);
 }
 
-void func_80B592A8(EnZl3* this, PlayState* play) {
+void func_ACTION_37(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_SmoothStepToZeroRot(this);
-    func_80B57298(this);
+    EnZl3_TurnToNextPoint(this);
     Actor_SetFocus(&this->actor, 60.0f);
     EnZl3_UpdateCollider(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
-    func_80B57AAC(this, EnZl3_UpdateSkelAnime(this), &gZelda2Anime2Anim_003D20);
+    EnZl3_SetAnimationIfCurrentFinished(this, EnZl3_UpdateSkelAnime(this), &gZelda2Anime2Anim_003D20);
     func_80B56DEC(this);
     func_80B58AAC(this, play);
 }
 
-void func_80B59340(EnZl3* this, PlayState* play) {
+void func_ACTION_38(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_SmoothStepToZeroRot(this);
-    func_80B57298(this);
+    EnZl3_TurnToNextPoint(this);
     Actor_SetFocus(&this->actor, 60.0f);
     EnZl3_UpdateCollider(this, play);
     EnZl3_UpdateBgCheckInfo(this, play);
     EnZl3_UpdateEyes(this);
-    func_80B57AAC(this, EnZl3_UpdateSkelAnime(this), &gZelda2Anime2Anim_009FBC);
+    EnZl3_SetAnimationIfCurrentFinished(this, EnZl3_UpdateSkelAnime(this), &gZelda2Anime2Anim_009FBC);
     func_80B58AAC(this, play);
 }
 
-void func_80B593D0(EnZl3* this, PlayState* play) {
+void func_ACTION_39(EnZl3* this, PlayState* play) {
     EnZl3_UpdateObjectSegment(this, play);
     EnZl3_SmoothStepToZeroRot(this);
-    func_80B57298(this);
+    EnZl3_TurnToNextPoint(this);
     EnZl3_UpdateBgCheckInfo(this, play);
     func_80B56E38(this, play);
     Actor_SetFocus(&this->actor, 60.0f);
@@ -2473,7 +2520,8 @@ void func_80B593D0(EnZl3* this, PlayState* play) {
     func_80B58C08(this, play);
 }
 
-s32 EnZl3_OverrideLimbDrawUnused(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx, Gfx** gfx) {
+s32 EnZl3_OverrideLimbDrawUnused(PlayState* play, s32 limbIndex, Gfx** dList, Vec3f* pos, Vec3s* rot, void* thisx,
+                                 Gfx** gfx) {
     if (limbIndex == 14) {
         Mtx* mtx = GRAPH_ALLOC(play->state.gfxCtx, sizeof(Mtx) * 7);
         EnZl3* this = (EnZl3*)thisx;
@@ -2520,7 +2568,7 @@ s32 func_80B59698(EnZl3* this, PlayState* play) {
     if (cond) {
         u8 spawn = play->spawn;
 
-        if ((func_80B54DB4(this) == 0x20) && (spawn == 0) &&
+        if ((EnZl3_GetUpperParams(this) == 0x20) && (spawn == 0) &&
             ((gSaveContext.subTimerSeconds <= 0) || (gSaveContext.subTimerState == SUBTIMER_STATE_OFF))) {
             return 1;
         }
@@ -2537,7 +2585,7 @@ s32 func_80B59768(EnZl3* this, PlayState* play) {
     if (cond) {
         u8 spawn = play->spawn;
 
-        if ((func_80B54DB4(this) == 0x20) && (spawn == 0) && (gSaveContext.subTimerSeconds <= 0)) {
+        if ((EnZl3_GetUpperParams(this) == 0x20) && (spawn == 0) && (gSaveContext.subTimerSeconds <= 0)) {
             return 1;
         }
     }
@@ -2551,13 +2599,13 @@ void func_80B59828(EnZl3* this, PlayState* play) {
         EnZl3_SetAnimation(this, &gZelda2Anime2Anim_009FBC, 0, 0.0f, 0);
         this->actor.flags |= ACTOR_FLAG_0 | ACTOR_FLAG_3;
         func_80B56F10(this, play);
-        newRotY = func_80B571A8(this);
+        newRotY = EnZl3_AngleToNextPathPoint(this);
         this->actor.shape.rot.y = newRotY;
         this->actor.world.rot.y = newRotY;
         this->unk_3C4 = this->actor.world.rot.z;
         this->actor.shape.rot.z = 0;
         this->actor.world.rot.z = this->actor.shape.rot.z;
-        this->action = 28;
+        this->action = ZELDA_ACTION_28;
         this->drawConfig = 1;
     } else {
         Actor_Kill(&this->actor);
@@ -2584,7 +2632,7 @@ void func_80B59828(EnZl3* this, PlayState* play) {
         Flags_UnsetSwitch(play, 0x2A);
     }
 
-    if (func_80B54DB4(this) == 0x20) {
+    if (EnZl3_GetUpperParams(this) == 0x20) {
         s32 cond;
 
         EnZl3_SpawnVoidManager(this, play);
@@ -2616,13 +2664,14 @@ void EnZl3_InitCollapseSequence(EnZl3* this, PlayState* play) {
     func_80B56F10(this, play);
     gSaveContext.healthAccumulator = 320;
     Magic_Fill(play);
-    this->action = 27;
+    this->action = ZELDA_ACTION_27;
     this->drawConfig = 1;
 }
 
-void func_80B59B6C(EnZl3* this, PlayState* play) {
-    s32 sp2C = func_80B54DD4(this);
+void EnZl3_SetupAfterObjectLoaded(EnZl3* this, PlayState* play) {
+    s32 sp2C = EnZl3_GetLowerParams(this);
 
+    //Reset animation countdowns(?)
     this->unk_3DC = Animation_GetLastFrame(SEGMENTED_TO_VIRTUAL(&gZelda2Anime2Anim_0091D8));
     this->unk_3E0 = Animation_GetLastFrame(SEGMENTED_TO_VIRTUAL(&gZelda2Anime2Anim_00A598));
     this->unk_3E4 = Animation_GetLastFrame(SEGMENTED_TO_VIRTUAL(&gZelda2Anime2Anim_00A334));
@@ -2633,10 +2682,10 @@ void func_80B59B6C(EnZl3* this, PlayState* play) {
 
     switch (sp2C) {
         case 0:
-            func_80B54FB4(this, play);
+            En_Zl3_Actor_inFinal_Init(this, play);
             break;
         case 1:
-            func_80B55780(this, play);
+            En_Zl3_Actor_inFinal2_Init(this, play);
             break;
         case 3:
             func_80B59828(this, play);
@@ -2647,7 +2696,7 @@ void func_80B59B6C(EnZl3* this, PlayState* play) {
     }
 }
 
-void func_80B59DB8(EnZl3* this, PlayState* play) {
+void EnZl3_WaitForObject(EnZl3* this, PlayState* play) {
     s32 pad;
     ObjectContext* objectCtx = &play->objectCtx;
     s32 objectSlot = Object_GetSlot(objectCtx, OBJECT_ZL2_ANIME2);
@@ -2663,17 +2712,18 @@ void func_80B59DB8(EnZl3* this, PlayState* play) {
     if (Object_IsLoaded(objectCtx, objectSlot)) {
         this->zl2Anime2ObjectSlot = objectSlot;
         EnZl3_UpdateObjectSegment(this, play);
-        func_80B59B6C(this, play);
+        EnZl3_SetupAfterObjectLoaded(this, play);
     }
 }
 
+//Size: 40
 static EnZl3ActionFunc sActionFuncs[] = {
-    func_80B59DB8, func_80B55550, func_80B555A4, func_80B55604, func_80B5566C, func_80B556CC, func_80B5572C,
-    func_80B56658, func_80B566AC, func_80B5670C, func_80B5676C, func_80B567CC, func_80B5682C, func_80B568B4,
-    func_80B5691C, func_80B5697C, func_80B569E4, func_80B56A68, func_80B56AE0, func_80B56B54, func_80B56BA8,
-    func_80B56C24, func_80B56C84, func_80B56CE4, func_80B56D44, func_80B58D50, func_80B58DB0, func_80B58E10,
-    func_80B58E7C, func_80B58EF4, func_80B58F6C, func_80B58FDC, func_80B5904C, func_80B590BC, func_80B5912C,
-    func_80B591BC, func_80B5922C, func_80B592A8, func_80B59340, func_80B593D0,
+    EnZl3_WaitForObject, func_ACTION_1, func_ACTION_2, func_ACTION_3, func_ACTION_4, func_ACTION_5, func_ACTION_6,
+    func_ACTION_7, func_ACTION_8, func_ACTION_9, func_ACTION_10, func_ACTION_11, func_ACTION_12, func_ACTION_13,
+    func_ACTION_14, func_ACTION_15, func_ACTION_16, func_ACTION_17, func_ACTION_18, func_ACTION_19, func_ACTION_20,
+    func_ACTION_21, func_ACTION_22, func_ACTION_23, func_ACTION_24, func_ACTION_25, func_ACTION_26, func_ACTION_27,
+    func_ACTION_28, func_ACTION_29, func_ACTION_30, func_ACTION_31, func_ACTION_32, func_ACTION_33, func_ACTION_34,
+    func_ACTION_35, func_ACTION_36, func_ACTION_37, func_ACTION_38, func_ACTION_39,
 };
 
 void EnZl3_Update(Actor* thisx, PlayState* play) {
@@ -2697,7 +2747,7 @@ void EnZl3_Init(Actor* thisx, PlayState* play) {
     EnZl3_InitCollider(thisx, play);
     SkelAnime_InitFlex(play, &this->skelAnime, &gZelda2Skel, NULL, this->jointTable, this->morphTable, 15);
 
-    switch (func_80B54DD4(this)) {
+    switch (EnZl3_GetLowerParams(this)) {
         case 1:
             gSaveContext.subTimerState = SUBTIMER_STATE_OFF;
             break;
